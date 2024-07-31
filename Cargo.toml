@@ -6,6 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+home = "0.5.9"
 solana-client = "2.0.3"
 solana-program = "2.0.3"
 solana-sdk = "2.0.3"

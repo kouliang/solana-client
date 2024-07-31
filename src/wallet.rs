@@ -25,8 +25,6 @@ pub enum RpcType {
     Custom(String)
 }
 
-const DEFAULT_KEYPAIR_PATH: &str = "/Users/kou/.config/solana/id.json";
-
 impl Wallet {
     pub fn new(keypair_path: &std::path::Path, rpc_type: RpcType) -> Self {
         let url = match rpc_type {
@@ -44,8 +42,8 @@ impl Wallet {
     }
 
     pub fn default(rpc_type: RpcType) -> Self {
-        let path = std::path::Path::new(DEFAULT_KEYPAIR_PATH);
-        Self::new(path, rpc_type)
+        let path = home::home_dir().unwrap().join(".config/solana/id.json");
+        Self::new(path.as_path(), rpc_type)
     }
 
     pub fn pubkey(&self) -> Pubkey {
