@@ -1,5 +1,4 @@
 use crate::wallet::*;
-use crate::send_transaction;
 
 use solana_sdk::signature::Signer;
 use solana_sdk::transaction::VersionedTransaction;
@@ -41,7 +40,7 @@ pub fn create_lookup(wallet: &Wallet, new_addresses: Vec<Pubkey>) -> Pubkey {
     let versioned_transaction = VersionedTransaction::try_new(version_message, &[&wallet.payer]).unwrap();
 
     // 发送交易
-    send_transaction(wallet, &versioned_transaction);
+    wallet.send_transaction(&versioned_transaction);
 
     lookup_table_key
 }

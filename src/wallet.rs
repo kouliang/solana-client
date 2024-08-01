@@ -11,6 +11,7 @@ use solana_sdk::signer::Signer;
 use solana_sdk::native_token::{lamports_to_sol, LAMPORTS_PER_SOL};
 
 use solana_program::pubkey::Pubkey;
+use solana_client::rpc_client::SerializableTransaction;
 
 pub struct Wallet {
     pub client: RpcClient,
@@ -76,6 +77,22 @@ impl Wallet {
         let balance = self.client.get_balance(pubkey).unwrap(); // 查询余额
         println!("balance: {:?} SOL", lamports_to_sol(balance));
         balance
+    }
+
+    pub fn send_transaction(&self, transaction: &impl SerializableTransaction) {
+        let result = self.client.send_and_confirm_transaction(transaction);
+    
+        match result {
+            Ok(sig) => loop {
+                if let Ok(confirmed) = self.client.confirm_transaction(&sig) {
+                    if confirmed {
+                        println!("Transaction: {} Status: {}", sig, confirmed);
+                        break;
+                    }
+                }
+            },
+            Err(err) => println!("{}", err),
+        }
     }
 }
 

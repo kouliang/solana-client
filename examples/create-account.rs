@@ -14,5 +14,5 @@ fn main() {
     let signing_keypairs = &[&wallet.payer, &new];
     let transaction = transaction_builder::signed_independent(&wallet, &[instruction1], signing_keypairs);
 
-    rust_client::send_transaction(&wallet, &transaction);
+    wallet.send_transaction(&transaction);
 }

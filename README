@@ -1,1 +1,1 @@
-Change the DEFAULT_KEYPAIR_PATH in /src/wallet.rs to your own KEYPAIR_PATH
+defaule wallet use keypair in ~/.config/solana/id.json
