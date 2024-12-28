@@ -1,4 +1,4 @@
-use rust_client::{RpcType, Wallet, wallet};
+use rust_client::{RpcType, Wallet};
 use rust_client::instruction_builder;
 use rust_client::transaction_builder;
 

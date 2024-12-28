@@ -1,4 +1,3 @@
-use std::str::FromStr;
 use std::fmt::Display;
 use std::fmt;
 
@@ -6,7 +5,6 @@ use solana_client::rpc_client::RpcClient;
 
 use solana_sdk::signature::Keypair;
 use solana_sdk::commitment_config::CommitmentConfig;
-use solana_sdk::signer::keypair;
 use solana_sdk::signer::Signer;
 use solana_sdk::native_token::{lamports_to_sol, LAMPORTS_PER_SOL};
 
@@ -38,7 +36,7 @@ impl Wallet {
 
         Wallet {
             client: RpcClient::new_with_commitment(url, CommitmentConfig::confirmed()),
-            payer: keypair_frome_file(keypair_path)
+            payer: crate::keypair::new_frome_file(keypair_path)
         }
     }
 
@@ -102,22 +100,3 @@ impl Display for Wallet {
     }
 }
 
-pub fn keypair_new() -> Keypair {
-    Keypair::new()
-}
-
-pub fn keypair_from_bytes(bytes: &[u8]) -> Keypair {
-    Keypair::from_bytes(bytes).unwrap()
-}
-
-pub fn keypair_from_base58_string(s: &str) -> Keypair {
-    Keypair::from_base58_string(s)
-}
-
-pub fn keypair_frome_file(path: &std::path::Path) -> Keypair {
-    keypair::read_keypair_file(path).unwrap()
-}
-
-pub fn pubkey_from_str(s: &str) -> Pubkey {
-    Pubkey::from_str(s).unwrap()
-}
